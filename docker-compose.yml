@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: prepportal_web
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=production_secure_secret_key_2026
+      - DATABASE_URL=postgresql://prepuser:preppass@db:5432/prepportal
+      - REDIS_URL=redis://redis:6379/0
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - MAIL_SERVER=${MAIL_SERVER}
+      - MAIL_PORT=${MAIL_PORT}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - uploads_data:/app/frontend/static/uploads
+
+  db:
+    image: postgres:15-alpine
+    container_name: prepportal_db
+    restart: always
+    environment:
+      POSTGRES_USER: prepuser
+      POSTGRES_PASSWORD: preppass
+      POSTGRES_DB: prepportal
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: prepportal_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads_data:

@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: prepportal
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    domains:
+      - www.placementpreparationportal.com
+      - placementpreparationportal.com
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: FLASK_ENV
+        value: production
+      - key: CUSTOM_DOMAIN
+        value: www.placementpreparationportal.com
+      - key: APP_URL
+        value: https://www.placementpreparationportal.com
+      - key: ALLOWED_HOSTS
+        value: www.placementpreparationportal.com,placementpreparationportal.com
+      - key: CORS_ORIGINS
+        value: https://www.placementpreparationportal.com,https://placementpreparationportal.com
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DB_TYPE
+        value: mysql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: 3306
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: placement_portal
+      - key: DATABASE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
