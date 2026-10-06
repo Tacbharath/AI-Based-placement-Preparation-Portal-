@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Flask instance and uploads
+instance/
+uploads/
+static/uploads/resumes/*
+!static/uploads/resumes/.gitkeep
+
+# SQLite database files
+*.db
+*.sqlite3
+database/portal.db
+
+# IDE and Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+test_resume.pdf
+
+# Firebase Service Account Credentials & Keys
+*firebase*.json
+*serviceAccount*.json
+firebase-credentials.json
+serviceAccountKey.json
